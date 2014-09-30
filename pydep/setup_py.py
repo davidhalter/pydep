@@ -34,7 +34,7 @@ def setup_info(setupfile):
     """Returns metadata for a PyPI package by running its setupfile"""
     setup_dict = {}
     def setup_replacement(**kw):
-        for k, v in kw.iteritems():
+        for k, v in kw.items():
             setup_dict[k] = v
 
     setuptools_mod = __import__('setuptools')
