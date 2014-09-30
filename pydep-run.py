@@ -11,6 +11,7 @@ import subprocess
 import tempfile
 import shutil
 
+
 def main():
     # Parse args
     argparser = argparse.ArgumentParser(description='pydep is simple command line tool that tells you about package dependency metadata in Python')
@@ -53,6 +54,7 @@ def list_info(args):
         setup_infos.append(setup_dict_to_json_serializable_dict(setup_dict, rootdir=path.relpath(setup_dir, container_dir)))
     print json.dumps(setup_infos)
 
+
 def info(args):
     """Subcommand to print out metadata of package"""
     setup_dict, err = pydep.setup_py.setup_info_dir(args.dir)
@@ -61,6 +63,7 @@ def info(args):
         sys.exit(1)
     print json.dumps(setup_dict_to_json_serializable_dict(setup_dict))
 
+
 def dep(args):
     """Subcommand to print out dependencies of project"""
     reqs, err = pydep.req.requirements(args.dir, not args.raw)
@@ -68,6 +71,7 @@ def dep(args):
         sys.stderr.write('failed due to error: %s\n' % err)
         sys.exit(1)
     print json.dumps(reqs)
+
 
 def smoke_test(args):
     """Test subcommand that runs pydep on a few popular repositories and prints the results."""
@@ -113,6 +117,7 @@ def smoke_test(args):
 #
 # Helpers
 #
+
 
 def setup_dict_to_json_serializable_dict(d, **kw):
     return {
