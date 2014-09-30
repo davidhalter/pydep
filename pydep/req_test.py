@@ -8,6 +8,7 @@ from pydep.req import *
 
 testdatadir = path.join(path.dirname(__file__), 'testdata')
 
+
 class Test_requirements(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
@@ -81,7 +82,7 @@ class Test_requirements(unittest.TestCase):
             dir_, exp = testcase[0], testcase[1]
             rootdir = path.join(testdatadir, dir_)
             reqs, err = requirements(rootdir, resolve=False)
-            if err != None:
+            if err is not None:
                 if exp != '<<ERROR>>':
                     print 'unexpected error: ', err
                 self.assertEqual(exp, '<<ERROR>>')
@@ -91,28 +92,26 @@ class Test_requirements(unittest.TestCase):
     def test_SetupToolsRequirement(self):
         testcases = [
             ("foo==0.0.0", {
-                 'extras': (),
-                 'key': 'foo',
-                 'modules': None,
-                 'packages': None,
-                 'project_name': 'foo',
-                 'repo_url': None,
-                 'resolved': False,
-                 'specs': [('==', '0.0.0')],
-                 'type': 'setuptools',
-                 'unsafe_name': 'foo'
-             }),
+                'extras': (),
+                'key': 'foo', 'modules': None, 'packages': None,
+                'project_name': 'foo',
+                'repo_url': None,
+                'resolved': False,
+                'specs': [('==', '0.0.0')],
+                'type': 'setuptools',
+                'unsafe_name': 'foo'
+            }),
             ("foo[bar]>=0.1b", {
-                 'extras': ('bar',),
-                 'key': 'foo',
-                 'modules': None,
-                 'packages': None,
-                 'project_name': 'foo',
-                 'repo_url': None,
-                 'resolved': False,
-                 'specs': [('>=', '0.1b')],
-                 'type': 'setuptools',
-                 'unsafe_name': 'foo'
+                'extras': ('bar',),
+                'key': 'foo',
+                'modules': None,
+                'packages': None,
+                'project_name': 'foo',
+                'repo_url': None,
+                'resolved': False,
+                'specs': [('>=', '0.1b')],
+                'type': 'setuptools',
+                'unsafe_name': 'foo'
             }),
         ]
         for testcase in testcases:
@@ -145,7 +144,7 @@ class Test_requirements(unittest.TestCase):
                 'repo_url': 'git://code.google.com/p/foo',
                 'unsafe_name': 'bar',
                 'project_name': 'bar',
-                'specs': [], 'extras': (), 'modules': None, 'packages': None,  'resolved': False,
+                'specs': [], 'extras': (), 'modules': None, 'packages': None, 'resolved': False,
             },
         ]
 

@@ -15,6 +15,7 @@ from os import path
 from pydep import setup_py
 from pydep.vcs import parse_repo_url
 
+
 def requirements(rootdir, resolve=True):
     """
     Accepts the root directory of a PyPI package and returns its requirements.
@@ -29,10 +30,11 @@ def requirements(rootdir, resolve=True):
     if resolve:
         for req in reqs:
             err = req.resolve()
-            if err != None:
+            if err is not None:
                 sys.stderr.write('error resolving requirement %s: %s\n' % (str(req), err))
 
     return [r.to_dict() for r in reqs], None
+
 
 def requirements_from_setup_py(rootdir):
     """
@@ -51,6 +53,7 @@ def requirements_from_setup_py(rootdir):
     return reqs, None
 
 REQUIREMENTS_FILE_GLOB = '*requirements*.txt'
+
 
 def requirements_from_requirements_txt(rootdir):
     req_files = glob(path.join(rootdir, REQUIREMENTS_FILE_GLOB))
@@ -110,7 +113,7 @@ class SetupToolsRequirement(object):
         """Downloads this requirement from PyPI and returns metadata from its setup.py. Returns an error string or None if no error."""
         tmpdir = tempfile.mkdtemp()
         with open(os.devnull, 'w') as devnull:
-            subprocess.call(['pip', 'install', '--build',  tmpdir, '--upgrade', '--force-reinstall', '--no-install', '--no-deps', '--no-use-wheel', str(self.req)],
+            subprocess.call(['pip', 'install', '--build', tmpdir, '--upgrade', '--force-reinstall', '--no-install', '--no-deps', '--no-use-wheel', str(self.req)],
                             stdout=devnull, stderr=devnull)
         projectdir = path.join(tmpdir, self.req.project_name)
         setup_dict, err = setup_py.setup_info_dir(projectdir)
@@ -120,6 +123,7 @@ class SetupToolsRequirement(object):
 
         self.metadata = setup_dict
         return None
+
 
 class PipVCSInstallRequirement(object):
     """
@@ -137,7 +141,7 @@ class PipVCSInstallRequirement(object):
         self.vcs = None
         if install_req.url.find('+') >= 0:
             self.vcs = install_req.url[:install_req.url.find('+')]
-        self.setuptools_req = install_req.req # may be None
+        self.setuptools_req = install_req.req  # may be None
 
     def __str__(self):
         return self.url.__str__()
