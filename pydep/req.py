@@ -12,8 +12,8 @@ import os
 from glob import glob
 from os import path
 
-import setup_py
-from vcs import parse_repo_url
+from pydep import setup_py
+from pydep.vcs import parse_repo_url
 
 def requirements(rootdir, resolve=True):
     """

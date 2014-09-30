@@ -4,7 +4,7 @@ import pip.req
 import tempfile
 import os
 from os import path
-from req import *
+from pydep.req import *
 
 testdatadir = path.join(path.dirname(__file__), 'testdata')
 

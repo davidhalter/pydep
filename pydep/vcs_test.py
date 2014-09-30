@@ -1,5 +1,5 @@
 import unittest
-from vcs import parse_repo_url
+from pydep.vcs import parse_repo_url
 
 class TestVCS(unittest.TestCase):
     def test_parse_repo_url(self):
