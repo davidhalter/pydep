@@ -52,7 +52,7 @@ def list_info(args):
             sys.stderr.write('failed due to error: %s\n' % err)
             sys.exit(1)
         setup_infos.append(setup_dict_to_json_serializable_dict(setup_dict, rootdir=path.relpath(setup_dir, container_dir)))
-    print json.dumps(setup_infos)
+    print(json.dumps(setup_infos))
 
 
 def info(args):
@@ -61,7 +61,7 @@ def info(args):
     if err is not None:
         sys.stderr.write('failed due to error: %s\n' % err)
         sys.exit(1)
-    print json.dumps(setup_dict_to_json_serializable_dict(setup_dict))
+    print(json.dumps(setup_dict_to_json_serializable_dict(setup_dict)))
 
 
 def dep(args):
@@ -70,7 +70,7 @@ def dep(args):
     if err is not None:
         sys.stderr.write('failed due to error: %s\n' % err)
         sys.exit(1)
-    print json.dumps(reqs)
+    print(json.dumps(reqs))
 
 
 def smoke_test(args):
@@ -84,33 +84,33 @@ def smoke_test(args):
     try:
         tmpdir = tempfile.mkdtemp()
         for title, cloneURL in testcases:
-            print 'Downloading and processing %s...' % title
+            print('Downloading and processing %s...' % title)
             subdir = path.splitext(path.basename(cloneURL))[0]
             dir_ = path.join(tmpdir, subdir)
             with open('/dev/null', 'w') as devnull:
                 subprocess.call(['git', 'clone', cloneURL, dir_], stdout=devnull, stderr=devnull)
 
-            print ''
+            print('')
             reqs, err = pydep.req.requirements(dir_, True)
             if err is None:
-                print 'Here is some info about the dependencies of %s' % title
+                print('Here is some info about the dependencies of %s' % title)
                 if len(reqs) == 0:
-                    print '(There were no dependencies found for %s)' % title
+                    print('(There were no dependencies found for %s)' % title)
                 else:
-                    print json.dumps(reqs, indent=2)
+                    print(json.dumps(reqs, indent=2))
             else:
-                print 'failed with error: %s' % err
+                print('failed with error: %s' % err)
 
-            print ''
+            print('')
             setup_dict, err = pydep.setup_py.setup_info_dir(dir_)
             if err is None:
-                print 'Here is the metadata for %s' % title
-                print json.dumps(setup_dict_to_json_serializable_dict(setup_dict), indent=2)
+                print('Here is the metadata for %s' % title)
+                print(json.dumps(setup_dict_to_json_serializable_dict(setup_dict), indent=2))
             else:
-                print 'failed with error: %s' % err
+                print('failed with error: %s' % err)
 
     except Exception as e:
-        print 'failed with exception %s' % str(e)
+        print('failed with exception %s' % str(e))
     finally:
         shutil.rmtree(tmpdir)
 
