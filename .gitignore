@@ -1,3 +1,4 @@
 *.pyc
 venv/
-
+*.sw[po]
+pydep.egg-info/
