@@ -6,7 +6,7 @@ import argparse
 import pydep.req
 import pydep.setup_py
 
-from os import system, path
+from os import path
 import subprocess
 import tempfile
 import shutil
